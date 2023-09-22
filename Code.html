@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Horoscope Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0097b2;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #310588;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #ffffff;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        select {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+            background-color: rgba(87, 10, 186, 0.66);
+            color: #ffffff;
+        }
+
+        select {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        button {
+            background-color: #f652a0;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #d83c85;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Horoscope Generator</h1>
+        <form>
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" placeholder="Enter your name">
+
+            <label for="zodiac">Your Zodiac Sign:</label>
+            <select id="zodiac">
+
+        <option value="Aries">Aries</option>
+    <option value="Taurus">Taurus</option>
+    <option value="Gemini">Gemini</option>
+    <option value="Cancer">Cancer</option>
+    <option value="Leo">Leo</option>
+    <option value="Virgo">Virgo</option>
+    <option value="Libra">Libra</option>
+    <option value="Scorpio">Scorpio</option>
+    <option value="Sagittarius">Sagittarius</option>
+    <option value="Capricorn">Capricorn</option>
+    <option value="Aquarius">Aquarius</option>
+    <option value="Pisces">Pisces</option>
+    </select><br><br>
+
+    <button type="button" onclick="generateHoroscope()">Generate Horoscope</button>
+</form>
+<div id="horoscopeResult"></div>
+</div>
+
+
+    <script>
+        function generateHoroscope() {
+            const name = document.getElementById('name').value;
+            const zodiac = document.getElementById('zodiac').value;
+            
+            // Replace this with your logic to generate a random horoscope.
+            const horoscopes = [
+                "Today is your lucky day! Good fortune is on the horizon.",
+                "Embrace change today; it will lead to exciting opportunities.",
+                "Your creativity knows no bounds today; express yourself freely.",
+                "Show kindness to others, and it will come back to you twofold.",
+                "Take a moment to reflect on your goals and ambitions today.",
+                "Trust your intuition; it will guide you in the right direction.",
+                "Stay open to new experiences; they will broaden your horizons.",
+                "Focus on self-care today; it's essential for your well-being.",
+                "A surprise awaits you; be ready for an unexpected twist.",
+                "Your hard work will pay off; success is within your reach.",
+                "Connect with loved ones today; they bring joy and support.",
+                "Savor the simple pleasures of life; they bring the most joy.",
+                "Let go of past grievances; forgiveness brings inner peace.",
+                "Chase your dreams with determination; you're unstoppable.",
+                "Be mindful of your words and actions; they have power.",
+                "Today is your lucky day!",
+                "You will meet someone new and interesting today.",
+                "Be cautious about your financial decisions today.",
+                // Add more horoscope predictions here.
+            ];
+            
+            const randomIndex = Math.floor(Math.random() * horoscopes.length);
+            const randomHoroscope = horoscopes[randomIndex];
+            
+            const horoscopeResult = document.getElementById('horoscopeResult');
+            horoscopeResult.innerHTML = `<p>Hello ${name} (${zodiac}), your horoscope is: ${randomHoroscope}</p>`;
+        }
+    </script>
+</body>
+</html>
+
+
+
