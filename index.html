@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Horoscope Generator</title>
     <script src="https://cdn.jsdelivr.net/npm/openai/dist/openai.js"></script> 
+    <script src="/horoscope.js" type="module" ></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -70,7 +71,7 @@
     <div class="container">
         <h1>Random Horoscope Generator</h1>
         <!-- Add the URL of your serverless function as the action of the form -->
-<form action="/api/horoscope" method="GET">
+<form >
     <label for="name">Your Name:</label>
     <input type="text" id="name" name="name" placeholder="Enter your name" required>
   
@@ -81,11 +82,11 @@
       <!-- Add more zodiac options here -->
     </select><br><br>
   
-    <button type="submit">Generate Horoscope</button>
+    <button onsubmit="" type="submit">Generate Horoscope</button>
   </form>
   <div id="horoscopeResult"></div>
   
-  <script>
+  <!-- <script>
     // Handle the form submission
     document.querySelector('form').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -108,7 +109,7 @@
         horoscopeResult.innerHTML = '<p>Failed to generate a horoscope. Please try again later.</p>';
       }
     });
-  </script>
+  </script> -->
   
 </body>
 </html>
