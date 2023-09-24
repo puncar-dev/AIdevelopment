@@ -1,5 +1,5 @@
 // horoscope.js
-const { createApi } = require('openai');
+import { createApi } from 'openai';
 
 const openai = createApi({
   key: process.env.OPENAI_API_KEY, // Set your OpenAI API key as an environment variable
