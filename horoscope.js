@@ -1,11 +1,10 @@
 // horoscope.js
 import { createApi } from 'openai';
 
-const openai = createApi({
-  key: process.env.OPENAI_API_KEY, // Set your OpenAI API key as an environment variable
-  endpoint: 'https://api.openai.com', // Use the OpenAI API endpoint
+// const openai = createApi({
+//   key: process.env.OPENAI_API_KEY, // Set your OpenAI API key as an environment variable
+//   endpoint: 'https://api.openai.com', // Use the OpenAI API endpoint
 });
-
 
 document.getElementById("submit-btn").addEventListener('click',()=>{
     const name = document.getElementById('name').value;
@@ -23,7 +22,7 @@ export async function getHoroscope (name, zodiac) {
 
   try {
     // Make an API request to ChatGPT
-    const response = await openai.createCompletion({
+    const response = await fetch ({
       prompt,
       max_tokens: 50, // Adjust the token limit as needed
     });
