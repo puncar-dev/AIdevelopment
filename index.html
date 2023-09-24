@@ -75,64 +75,47 @@
 
             <label for="zodiac">Your Zodiac Sign:</label>
             <select id="zodiac">
+                <option value="Aries">Aries</option>
+                <option value="Taurus">Taurus</option>
+                <!-- Add more zodiac options here -->
+            </select><br><br>
 
-        <option value="Aries">Aries</option>
-    <option value="Taurus">Taurus</option>
-    <option value="Gemini">Gemini</option>
-    <option value="Cancer">Cancer</option>
-    <option value="Leo">Leo</option>
-    <option value="Virgo">Virgo</option>
-    <option value="Libra">Libra</option>
-    <option value="Scorpio">Scorpio</option>
-    <option value="Sagittarius">Sagittarius</option>
-    <option value="Capricorn">Capricorn</option>
-    <option value="Aquarius">Aquarius</option>
-    <option value="Pisces">Pisces</option>
-    </select><br><br>
+            <button type="button" onclick="generateHoroscope()">Generate Horoscope</button>
+        </form>
+        <div id="horoscopeResult"></div>
+    </div>
 
-    <button type="button" onclick="generateHoroscope()">Generate Horoscope</button>
-</form>
-<div id="horoscopeResult"></div>
-</div>
+    <script>
+        const apiKey = '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';
 
+        async function generateHoroscope() {
+            const name = document.getElementById('name').value;
+            const zodiac = document.getElementById('zodiac').value;
 
-<script src="https://cdn.jsdelivr.net/npm/openai/dist/openai.js"></script>
+            // Create a prompt based on user input
+            const prompt = `Generate a horoscope for ${name} with zodiac sign ${zodiac}.`;
 
-<script>
-  const apiKey = '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';
+            try {
+                // Make an API request to ChatGPT
+                const response = await openai.createCompletion({
+                    prompt,
+                    max_tokens: 50, // Adjust the token limit as needed
+                    apiKey: apiKey, // Include your API key here
+                });
 
-  async function generateHoroscope() {
-    const name = document.getElementById('name').value;
-    const zodiac = document.getElementById('zodiac').value;
+                // Extract the generated horoscope from the response
+                const generatedHoroscope = response.choices[0].text;
 
-    // Create a prompt based on user input
-    const prompt = `Generate a horoscope for ${name} with zodiac sign ${zodiac}.`;
-
-    try {
-      // Make an API request to ChatGPT
-      const response = await openai.createCompletion({
-        prompt,
-        max_tokens: 50, // Adjust the token limit as needed
-        apiKey: apiKey, // Include your API key here
-      });
-
-      // Extract the generated horoscope from the response
-      const generatedHoroscope = response.choices[0].text;
-
-      // Display the generated horoscope in the result div
-      const horoscopeResult = document.getElementById('horoscopeResult');
-      horoscopeResult.innerHTML = `<p>Hello ${name} (${zodiac}), your horoscope is: ${generatedHoroscope}</p>`;
-    } catch (error) {
-      console.error('Error generating horoscope:', error);
-      // Handle errors gracefully
-      const horoscopeResult = document.getElementById('horoscopeResult');
-      horoscopeResult.innerHTML = '<p>Failed to generate a horoscope. Please try again later.</p>';
-    }
-  }
-</script>
-
+                // Display the generated horoscope in the result div
+                const horoscopeResult = document.getElementById('horoscopeResult');
+                horoscopeResult.innerHTML = `<p>Hello ${name} (${zodiac}), your horoscope is: ${generatedHoroscope}</p>`;
+            } catch (error) {
+                console.error('Error generating horoscope:', error);
+                // Handle errors gracefully
+                const horoscopeResult = document.getElementById('horoscopeResult');
+                horoscopeResult.innerHTML = '<p>Failed to generate a horoscope. Please try again later.</p>';
+            }
+        }
+    </script>
 </body>
 </html>
-
-
-
