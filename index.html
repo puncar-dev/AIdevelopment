@@ -69,53 +69,46 @@
 <body>
     <div class="container">
         <h1>Random Horoscope Generator</h1>
-        <form>
-            <label for="name">Your Name:</label>
-            <input type="text" id="name" placeholder="Enter your name">
-
-            <label for="zodiac">Your Zodiac Sign:</label>
-            <select id="zodiac">
-                <option value="Aries">Aries</option>
-                <option value="Taurus">Taurus</option>
-                <!-- Add more zodiac options here -->
-            </select><br><br>
-
-            <button type="button" onclick="generateHoroscope()">Generate Horoscope</button>
-        </form>
-        <div id="horoscopeResult"></div>
-    </div>
-
-    <script>
-        const openaiApiKey = process.env.OPENAI_API_KEY;
-
-        async function generateHoroscope() {
-            const name = document.getElementById('name').value;
-            const zodiac = document.getElementById('zodiac').value;
-
-            // Create a prompt based on user input
-            const prompt = `Generate a horoscope for ${name} with zodiac sign ${zodiac}.`;
-
-            try {
-                // Make an API request to ChatGPT
-                const response = await openai.createCompletion({
-                    prompt,
-                    max_tokens: 50, // Adjust the token limit as needed
-                    apiKey: apiKey, // Include your API key here
-                });
-
-                // Extract the generated horoscope from the response
-                const generatedHoroscope = response.choices[0].text;
-
-                // Display the generated horoscope in the result div
-                const horoscopeResult = document.getElementById('horoscopeResult');
-                horoscopeResult.innerHTML = `<p>Hello ${name} (${zodiac}), your horoscope is: ${generatedHoroscope}</p>`;
-            } catch (error) {
-                console.error('Error generating horoscope:', error);
-                // Handle errors gracefully
-                const horoscopeResult = document.getElementById('horoscopeResult');
-                horoscopeResult.innerHTML = '<p>Failed to generate a horoscope. Please try again later.</p>';
-            }
-        }
-    </script>
+        <!-- Add the URL of your serverless function as the action of the form -->
+<form action="/api/horoscope" method="GET">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+  
+    <label for="zodiac">Your Zodiac Sign:</label>
+    <select id="zodiac" name="zodiac">
+      <option value="Aries">Aries</option>
+      <option value="Taurus">Taurus</option>
+      <!-- Add more zodiac options here -->
+    </select><br><br>
+  
+    <button type="submit">Generate Horoscope</button>
+  </form>
+  <div id="horoscopeResult"></div>
+  
+  <script>
+    // Handle the form submission
+    document.querySelector('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const name = formData.get('name');
+      const zodiac = formData.get('zodiac');
+  
+      try {
+        // Make an HTTP GET request to the serverless function
+        const response = await fetch(`/api/horoscope?name=${encodeURIComponent(name)}&zodiac=${encodeURIComponent(zodiac)}`);
+        const data = await response.json();
+  
+        // Display the generated horoscope in the result div
+        const horoscopeResult = document.getElementById('horoscopeResult');
+        horoscopeResult.innerHTML = `<p>Hello ${name} (${zodiac}), your horoscope is: ${data.horoscope}</p>`;
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle errors gracefully
+        const horoscopeResult = document.getElementById('horoscopeResult');
+        horoscopeResult.innerHTML = '<p>Failed to generate a horoscope. Please try again later.</p>';
+      }
+    });
+  </script>
+  
 </body>
 </html>
