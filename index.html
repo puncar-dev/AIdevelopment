@@ -96,8 +96,12 @@
 </div>
 
 
-    <script>
-        async function generateHoroscope() {
+<script src="https://cdn.jsdelivr.net/npm/openai/dist/openai.js"></script>
+
+<script>
+  const apiKey = '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';
+
+  async function generateHoroscope() {
     const name = document.getElementById('name').value;
     const zodiac = document.getElementById('zodiac').value;
 
@@ -105,27 +109,28 @@
     const prompt = `Generate a horoscope for ${name} with zodiac sign ${zodiac}.`;
 
     try {
-        // Make an API request to ChatGPT
-        const response = await openai.createCompletion({
-            prompt,
-            max_tokens: 50, // Adjust the token limit as needed
-        });
+      // Make an API request to ChatGPT
+      const response = await openai.createCompletion({
+        prompt,
+        max_tokens: 50, // Adjust the token limit as needed
+        apiKey: apiKey, // Include your API key here
+      });
 
-        // Extract the generated horoscope from the response
-        const generatedHoroscope = response.choices[0].text;
+      // Extract the generated horoscope from the response
+      const generatedHoroscope = response.choices[0].text;
 
-        // Display the generated horoscope in the result div
-        const horoscopeResult = document.getElementById('horoscopeResult');
-        horoscopeResult.innerHTML = `<p>Hello ${name} (${zodiac}), your horoscope is: ${generatedHoroscope}</p>`;
+      // Display the generated horoscope in the result div
+      const horoscopeResult = document.getElementById('horoscopeResult');
+      horoscopeResult.innerHTML = `<p>Hello ${name} (${zodiac}), your horoscope is: ${generatedHoroscope}</p>`;
     } catch (error) {
-        console.error('Error generating horoscope:', error);
-        // Handle errors gracefully
-        const horoscopeResult = document.getElementById('horoscopeResult');
-        horoscopeResult.innerHTML = '<p>Failed to generate a horoscope. Please try again later.</p>';
+      console.error('Error generating horoscope:', error);
+      // Handle errors gracefully
+      const horoscopeResult = document.getElementById('horoscopeResult');
+      horoscopeResult.innerHTML = '<p>Failed to generate a horoscope. Please try again later.</p>';
     }
-}
+  }
+</script>
 
-    </script>
 </body>
 </html>
 
