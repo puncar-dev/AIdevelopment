@@ -1,5 +1,5 @@
-// Import necessary libraries
-const fetch = require('node-fetch'); // If you're using Node.js
+// Import necessary libraries using CommonJS require
+const fetch = require('node-fetch');
 
 module.exports = async (req, res) => {
     const { name, zodiac } = req.query; // Assuming you're passing name and zodiac as query parameters
