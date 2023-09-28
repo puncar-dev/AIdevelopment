@@ -86,36 +86,35 @@
 
     // ... (your existing code)
 
-    <script>
-        async function generateHoroscope() {
-            const name = document.getElementById('name').value;
-            const zodiac = document.getElementById('zodiac').value;
+    async function generateHoroscope() {
+        const name = document.getElementById('name').value;
+        const zodiac = document.getElementById('zodiac').value;
     
-            try {
-                // Make an API request to your serverless function
-                const response = await fetch(`https://dailyhoroscop.vercel.app/api/generateHoroscope);
+        try {
+            // Make an API request to your serverless function
+            const response = await fetch(`https://dailyhoroscop.vercel.app/api/generateHoroscope`);
+            
+            // Check if the response status is OK
+            if (response.ok) {
+                // Extract the generated horoscope from the response
+                const data = await response.json();
+                const generatedHoroscope = data.horoscope;
     
-                // Check if the response status is OK
-                if (response.ok) {
-                    // Extract the generated horoscope from the response
-                    const data = await response.json();
-                    const generatedHoroscope = data.horoscope;
-    
-                    // Display the generated horoscope in the result div
-                    const horoscopeResult = document.getElementById('horoscopeResult');
-                    horoscopeResult.innerHTML = `<p>Hello ${name} (${zodiac}), your horoscope is: ${generatedHoroscope}</p>`;
-                } else {
-                    console.error('Error generating horoscope:', response.statusText);
-                    // Handle errors gracefully
-                    alert('Failed to generate a horoscope. Please try again later.');
-                }
-            } catch (error) {
-                console.error('Error generating horoscope:', error);
+                // Display the generated horoscope in the result div
+                const horoscopeResult = document.getElementById('horoscopeResult');
+                horoscopeResult.innerHTML = `<p>Hello ${name} (${zodiac}), your horoscope is: ${generatedHoroscope}</p>`;
+            } else {
+                console.error('Error generating horoscope:', response.statusText);
                 // Handle errors gracefully
                 alert('Failed to generate a horoscope. Please try again later.');
             }
+        } catch (error) {
+            console.error('Error generating horoscope:', error);
+            // Handle errors gracefully
+            alert('Failed to generate a horoscope. Please try again later.');
         }
-    </script>
+    }
+    
      
     
 </body>
