@@ -88,31 +88,17 @@
         async function generateHoroscope() {
             const name = document.getElementById('name').value;
             const zodiac = document.getElementById('zodiac').value;
-            const apiKey = process.env.OPENAI_API_KEY || 'YOUR_DEFAULT_API_KEY'; // Fetch the API key from the environment variable
-    
-            // Create a prompt based on user input
-            const prompt = `Generate a horoscope for ${name} with zodiac sign ${zodiac}.`;
-    
+        
             try {
-                // Make an API request to OpenAI
-                const response = await fetch('https://api.openai.com/v1/engines/davinci/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify({
-                        prompt: prompt,
-                        max_tokens: 50 // Adjust the token limit as needed
-                    })
-                });
-    
+                // Make an API request to your serverless function
+                const response = await fetch(`/api/generateHoroscope?name=${name}&zodiac=${zodiac}`);
+        
                 // Check if the response status is OK
                 if (response.ok) {
                     // Extract the generated horoscope from the response
                     const data = await response.json();
-                    const generatedHoroscope = data.choices[0].text;
-    
+                    const generatedHoroscope = data.horoscope;
+        
                     // Display the generated horoscope in the result div
                     const horoscopeResult = document.getElementById('horoscopeResult');
                     horoscopeResult.innerHTML = `<p>Hello ${name} (${zodiac}), your horoscope is: ${generatedHoroscope}</p>`;
@@ -128,6 +114,7 @@
             }
         }
     </script>
+    
     
 </body>
 </html>
